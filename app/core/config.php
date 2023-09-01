@@ -2,6 +2,18 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('ROOT', 'http://localhost/php-mvc-01/public');
+
+    define('DB_NAME', 'my_mvc_db');
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_DRIVER', '');
 } else {
     define('ROOT', 'https://www.yoursite.com');
+
+    define('DB_NAME', 'my_mvc_db');
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_DRIVER', '');
 }
