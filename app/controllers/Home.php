@@ -21,6 +21,11 @@ class Home extends Controller
         //try delete query
         //$model->delete(6);
 
+        //try update query
+        //$arr['name'] = 'EvgenTest';
+        //$arr['age'] = 31;
+        //$model->update(2, $arr);
+
         $this->view('home');
     }
 }

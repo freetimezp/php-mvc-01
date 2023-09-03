@@ -11,7 +11,7 @@ class Model
     {
         $query = "SELECT * FROM users";
         $result = $this->query($query);
-        //show($result);
+        show($result);
     }
 
     protected $table = 'users';
@@ -88,8 +88,28 @@ class Model
         return false;
     }
 
+    //UPDATE query
     public function update($id, $data, $id_column = 'id')
     {
+        //grab all keys from array
+        $keys = array_keys($data);
+        $query = "UPDATE $this->table SET ";
+
+        foreach ($keys as $key) {
+            $query .= $key . " = :" . $key . ", ";
+        }
+
+        //delete last symbols in string
+        $query = trim($query, ", ");
+
+        //build query
+        $query .= "  WHERE $id_column = :$id_column";
+        //echo $query;
+
+        $data[$id_column] = $id;
+        $this->query($query, $data);
+
+        return false;
     }
 
     //DELETE query
