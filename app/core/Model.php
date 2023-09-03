@@ -18,6 +18,7 @@ class Model
     protected $limit = 10;
     protected $offset = 0;
 
+    //WHERE query
     public function where($data, $data_not = [])
     {
         //grab all keys from array
@@ -43,6 +44,7 @@ class Model
         return $this->query($query, $data);
     }
 
+    //FIRST query, get first item
     public function first($data, $data_not = [])
     {
         //grab all keys from array
@@ -73,15 +75,32 @@ class Model
         return false;
     }
 
+    //INSERT query, add new row to db
     public function insert($data)
     {
+        //grab all keys from array
+        $keys = array_keys($data);
+        $query = "INSERT INTO $this->table (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", $keys) . ")";
+        //echo $query;
+
+        $this->query($query, $data);
+
+        return false;
     }
 
     public function update($id, $data, $id_column = 'id')
     {
     }
 
+    //DELETE query
     public function delete($id, $id_column = 'id')
     {
+        $data[$id_column] = $id;
+        $query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
+        //echo $query;
+
+        $this->query($query, $data);
+
+        return false;
     }
 }
