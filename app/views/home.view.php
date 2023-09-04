@@ -9,9 +9,7 @@
 </head>
 
 <body>
-    <h1>home view</h1>
-    <img src="<?= ROOT ?>/assets/images/img-1.jpg" alt="home">
-
+    Start Site here
     <script src="<?= ROOT ?>/assets/js/main.js"></script>
 </body>
 

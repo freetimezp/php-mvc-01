@@ -17,3 +17,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('DB_PASSWORD', '');
     define('DB_DRIVER', '');
 }
+
+define('APP_NAME', 'My Website');
+//if true errors will show
+define('DEBUG', true);
