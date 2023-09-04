@@ -1,6 +1,6 @@
 <?php
 
-class Model
+trait Model
 {
     //you can only extends one Class but can add many traits
     //add trait Database to this Model
@@ -11,12 +11,23 @@ class Model
     {
         $query = "SELECT * FROM users";
         $result = $this->query($query);
-        show($result);
+        //show($result);
     }
 
-    protected $table = 'users';
     protected $limit = 10;
     protected $offset = 0;
+    protected $order_type = "desc";
+    protected $order_column = "id";
+
+    //FINDALL query
+    public function findAll()
+    {
+        //build query
+        $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        //echo $query;
+
+        return $this->query($query);
+    }
 
     //WHERE query
     public function where($data, $data_not = [])
@@ -37,7 +48,7 @@ class Model
         $query = trim($query, " && ");
 
         //build query
-        $query .= " LIMIT $this->limit OFFSET $this->offset";
+        $query .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
         $data = array_merge($data, $data_not);
         //echo $query;
 
@@ -78,6 +89,15 @@ class Model
     //INSERT query, add new row to db
     public function insert($data)
     {
+        //remove unwanted columns in data
+        if (!empty($this->allowedColumns)) {
+            foreach ($data as $key) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
         //grab all keys from array
         $keys = array_keys($data);
         $query = "INSERT INTO $this->table (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", $keys) . ")";
@@ -91,6 +111,15 @@ class Model
     //UPDATE query
     public function update($id, $data, $id_column = 'id')
     {
+        //remove unwanted columns in data
+        if (!empty($this->allowedColumns)) {
+            foreach ($data as $key) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
         //grab all keys from array
         $keys = array_keys($data);
         $query = "UPDATE $this->table SET ";

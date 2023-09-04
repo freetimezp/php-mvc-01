@@ -4,8 +4,8 @@ class Home extends Controller
 {
     public function index()
     {
-        $model = new Model;
-        $model->test();
+        $user = new User;
+        $user->test();
 
         //get data with WHERE query
         //$arr['id'] = 1;
@@ -13,10 +13,14 @@ class Home extends Controller
         //$result = $model->where($arr);
         //show($result);
 
+        //try findAll query
+        $result = $user->findAll();
+        //show($result);
+
         //try insert query
-        //$arr['name'] = 'EvgenTest';
-        //$arr['age'] = 25;
-        //$result = $model->insert($arr);
+        //$arr['name'] = 'EvgenTest2';
+        //$arr['age'] = 35;
+        //$result = $user->insert($arr);
 
         //try delete query
         //$model->delete(6);
